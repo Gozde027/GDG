@@ -15,7 +15,7 @@ import com.gdg.ui.theme.GDGTheme
 import com.gdg.ui.theme.MyBlue
 import com.gdg.ui.theme.MyOrange
 
-val bars = listOf(100f, 50f, 25f, 40f, 5f, 23f, 10f)
+val bars = listOf(100, 50, 25, 40, 5, 23, 10)
 
 @Preview
 @Composable
@@ -26,7 +26,7 @@ fun LineChartPreview() {
 }
 
 @Composable
-fun LineChart(lines: List<Float>) {
+fun LineChart(lines: List<Int>) {
     BoxWithConstraints(modifier = Modifier.padding(horizontal = 8.dp)) {
 
         val maxWidthInPx = with(LocalDensity.current) {
