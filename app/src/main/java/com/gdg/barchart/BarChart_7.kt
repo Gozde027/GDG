@@ -42,6 +42,7 @@ fun BarChart_7(prices: @Composable () -> Unit, priceIndicators: @Composable () -
             val indicatorConstraint = Constraints.fixedWidth(indicatorWidth)
             val indicatorPlaceables = indicatorMeasurables.map { it.measure(indicatorConstraint) }
 
+            val priceBaselines = pricePlaceables.map { it.calculateBaseline() }
 
             // PLACEMENT SCOPE
             layout(layoutWidth, layoutHeight) {
@@ -51,7 +52,7 @@ fun BarChart_7(prices: @Composable () -> Unit, priceIndicators: @Composable () -
                     val indicatorPlaceable = indicatorPlaceables[index]
 
                     pricePlaceable.place(maxWidthOfPrice - pricePlaceable.width, initialY)
-                    val baseline = pricePlaceable.calculateBaseline()
+                    val baseline = priceBaselines[index]
                     indicatorPlaceable.place(maxWidthOfPrice, initialY + baseline)
 
                     initialY += pricePlaceable.height + spaceBetweenPrices
