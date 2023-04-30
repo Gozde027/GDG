@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,6 +28,21 @@ fun Bar(color: Color, height: Dp) {
             .height(height)
             .background(color = color)
     )
+}
+
+val barComposable = @Composable {
+    repeat(1) {
+        Bar(color = MyGreen, height = 130.dp)
+    }
+}
+
+val barsComposable = @Composable {
+    repeat(1) {
+        Bar(color = MyGreen, height = 130.dp)
+        Bar(color = MyOrange, height = 50.dp)
+        Bar(color = MyBlue, height = 130.dp)
+        Bar(color = MyGreen, height = 50.dp)
+    }
 }
 
 @Preview
