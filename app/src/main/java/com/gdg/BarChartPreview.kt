@@ -9,6 +9,8 @@ import com.gdg.barchart.BarChart_2
 import com.gdg.barchart.BarChart_3
 import com.gdg.barchart.BarChart_4
 import com.gdg.barchart.BarChart_5
+import com.gdg.barchart.BarChart_6
+import com.gdg.barchart.BarChart_7
 import com.gdg.chart.components.priceIndicatorsComposable
 import com.gdg.chart.components.pricesComposable
 import com.gdg.ui.theme.GDGTheme
@@ -59,6 +61,26 @@ fun BarChart5_AddPriceIndicators_WithProblems() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_5(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BarChart6_PriceIndicators_FixedWidthConstraint() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_6(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BarChart6_PriceIndicators_AlignWithBaseline() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_7(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
         }
     }
 }
