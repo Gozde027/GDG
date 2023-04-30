@@ -3,6 +3,7 @@ package com.gdg
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.gdg.barchart.BarChart_1
 import com.gdg.barchart.BarChart_2
@@ -77,7 +78,17 @@ fun BarChart6_PriceIndicators_FixedWidthConstraint() {
 
 @Preview
 @Composable
-fun BarChart6_PriceIndicators_AlignWithBaseline() {
+fun BarChart7_PriceIndicators_AlignWithBaseline() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_7(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
+        }
+    }
+}
+
+@Preview(device = Devices.TABLET)
+@Composable
+fun BarChart7_PriceIndicators_AlignWithBaseline_Landscape() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_7(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
