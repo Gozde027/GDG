@@ -3,6 +3,7 @@ package com.gdg
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.Layout
 
+// Show empty content, just explain MEASURABLE and PLACEABLE SCOPES
 @Composable
 fun EmptyLayout() {
     Layout(content = { /*TODO*/ }, measurePolicy = { measurables, constraints ->
