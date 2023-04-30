@@ -1,12 +1,19 @@
 package com.gdg
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Devices.TABLET
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.gdg.barchart.BarChart_1
+import com.gdg.barchart.BarChart_10
+import com.gdg.barchart.BarChart_11
 import com.gdg.barchart.BarChart_2
 import com.gdg.barchart.BarChart_3
 import com.gdg.barchart.BarChart_4
@@ -138,6 +145,54 @@ fun BarChart9_AlignBars_Tablet() {
                 prices = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BarChart10_BarWidth() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_10(
+                prices = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = barsComposable,
+                barWidth = 40.dp
+            )
+        }
+    }
+}
+
+@Preview(device = TABLET)
+@Composable
+fun BarChart10_BarWidth_Tablet() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_10(
+                prices = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = barsComposable,
+                barWidth = 40.dp
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BarChart11_Modifier_Padding() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_11(
+                prices = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = barsComposable,
+                barWidth = 40.dp,
+                modifier = Modifier
+                    .background(Color.DarkGray)
+                    .padding(16.dp)
             )
         }
     }
