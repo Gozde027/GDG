@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Devices.TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import com.gdg.barchart.BarChart_1
 import com.gdg.barchart.BarChart_2
@@ -13,7 +14,9 @@ import com.gdg.barchart.BarChart_5
 import com.gdg.barchart.BarChart_6
 import com.gdg.barchart.BarChart_7
 import com.gdg.barchart.BarChart_8
+import com.gdg.barchart.BarChart_9
 import com.gdg.chart.components.barComposable
+import com.gdg.chart.components.barsComposable
 import com.gdg.chart.components.priceIndicatorsComposable
 import com.gdg.chart.components.pricesComposable
 import com.gdg.ui.theme.GDGTheme
@@ -107,6 +110,34 @@ fun BarChart8_Add_OneBar() {
                 prices = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barComposable
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BarChart9_AlignBars() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_9(
+                prices = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = barsComposable
+            )
+        }
+    }
+}
+
+@Preview(device = TABLET)
+@Composable
+fun BarChart9_AlignBars_Tablet() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_9(
+                prices = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = barsComposable
             )
         }
     }

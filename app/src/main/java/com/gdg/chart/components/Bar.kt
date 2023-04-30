@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -13,35 +12,39 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.gdg.chart.extension.price
 import com.gdg.ui.theme.GDGTheme
 import com.gdg.ui.theme.MyBlue
 import com.gdg.ui.theme.MyGreen
 import com.gdg.ui.theme.MyOrange
 
 @Composable
-fun Bar(color: Color, height: Dp) {
+fun Bar(price: Int, color: Color) {
     Box(
         modifier = Modifier
             .width(20.dp)
-            .height(height)
+            .price(price)
+            // .height(height)
             .background(color = color)
     )
 }
 
 val barComposable = @Composable {
     repeat(1) {
-        Bar(color = MyGreen, height = 130.dp)
+        Bar(color = MyGreen, price = 130)
     }
 }
 
 val barsComposable = @Composable {
     repeat(1) {
-        Bar(color = MyGreen, height = 130.dp)
-        Bar(color = MyOrange, height = 50.dp)
-        Bar(color = MyBlue, height = 130.dp)
-        Bar(color = MyGreen, height = 50.dp)
+        Bar(color = MyGreen, price = 100)
+        Bar(color = MyOrange, price = 50)
+        Bar(color = MyBlue, price = 25)
+        Bar(color = MyGreen, price = 40)
+        Bar(color = MyBlue, price = 5)
+        Bar(color = MyOrange, price = 23)
+        Bar(color = MyGreen, price = 10)
     }
 }
 
@@ -56,12 +59,12 @@ fun BarPreview() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Bottom
         ) {
-            Bar(color = MyGreen, height = 30.dp)
-            Bar(color = MyOrange, height = 70.dp)
-            Bar(color = MyBlue, 50.dp)
-            Bar(color = MyGreen, height = 90.dp)
-            Bar(color = MyOrange, height = 10.dp)
-            Bar(color = MyBlue, 25.dp)
+            Bar(color = MyGreen, price = 30)
+            Bar(color = MyOrange, price = 70)
+            Bar(color = MyBlue, price = 50)
+            Bar(color = MyGreen, price = 90)
+            Bar(color = MyOrange, price = 10)
+            Bar(color = MyBlue, price = 25)
         }
     }
 }
