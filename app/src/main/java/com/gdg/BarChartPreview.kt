@@ -7,6 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.gdg.barchart.BarChart_1
 import com.gdg.barchart.BarChart_2
 import com.gdg.barchart.BarChart_3
+import com.gdg.barchart.BarChart_4
 import com.gdg.chart.components.pricesComposable
 import com.gdg.ui.theme.GDGTheme
 
@@ -36,6 +37,16 @@ fun BarChart_WithPrices_AlignByMax() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_3(prices = pricesComposable)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BarChart_WithPrices_AlignWithEqualSpacer() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_4(prices = pricesComposable)
         }
     }
 }
