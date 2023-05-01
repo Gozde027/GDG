@@ -6,8 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gdg.chart.extension.price
@@ -35,7 +36,23 @@ fun RoundRectBar(price: Int, color: Color) {
             .price(price)
             // .height(height)
             .drawBehind {
-                drawRoundRect(color = color, cornerRadius = CornerRadius(30.dp.toPx(), 30.dp.toPx()))
+
+                val cornerRadius = CornerRadius(20f, 20f)
+                val path = Path().apply {
+                    addRoundRect(
+                        RoundRect(
+                            rect = Rect(
+                                offset = Offset(0f, 0f),
+                                size = Size(size.width, size.height),
+                            ),
+                            topLeft = cornerRadius,
+                            topRight = cornerRadius,
+                        )
+                    )
+                }
+                drawPath(path, color = color)
+
+                //drawRoundRect(color = color, cornerRadius = CornerRadius(30.dp.toPx(), 30.dp.toPx()))
             }
     )
 }
