@@ -1,4 +1,4 @@
-package com.gdg.barchart
+package com.gdg.layout.modifier
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,9 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gdg.chart.components.priceIndicatorsComposable
-import com.gdg.chart.components.pricesComposable
-import com.gdg.chart.components.topEdgesRoundRectBarsComposable
 import com.gdg.ui.theme.GDGTheme
 
 @Composable
