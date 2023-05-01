@@ -16,6 +16,37 @@ import androidx.compose.ui.unit.dp
 import com.gdg.ui.theme.GDGTheme
 
 @Composable
+fun NoLayoutModifierExample() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray)
+            .padding(40.dp)
+    ) {
+
+        Text(
+            "MyBasicColumn",
+            Modifier
+                .fillMaxWidth()
+                .background(Color.DarkGray)
+        )
+        Text(
+            "MySecondBasicColumn",
+            Modifier
+                .fillMaxWidth()
+                .background(Color.DarkGray)
+        )
+        Text(
+            "MyThridBasicColumn",
+            Modifier
+                . fillMaxWidth ()
+                .background(Color.DarkGray)
+        )
+
+    }
+}
+
+@Composable
 fun LayoutModifierExample() {
     Column(
         modifier = Modifier
@@ -24,28 +55,35 @@ fun LayoutModifierExample() {
             .padding(40.dp)
     ) {
 
-        Text("MyBasicColumn",
+        Text(
+            "MyBasicColumn",
             Modifier
                 .fillMaxWidth()
-                .background(Color.DarkGray))
-        Text("MySecondBasicColumn",
+                .background(Color.DarkGray)
+        )
+        Text(
+            "MySecondBasicColumn",
             Modifier
                 .fillMaxWidth()
+                .background(Color.DarkGray)
+        )
+        Text("MyThridBasicColumn",
+            Modifier
+                .layout { measurable, constraints ->
+                    val placeable = measurable.measure(
+                        constraints.copy(
+                            maxWidth = constraints.maxWidth + 80.dp.roundToPx()
+                        )
+                    )
+                    layout(placeable.width, placeable.height) {
+                        placeable.place(0, 0)
+                    }
+                }
+                .fillMaxWidth()
                 .background(Color.DarkGray))
-        Text("MyThridBasicColumn", Modifier.layout { measurable, constraints ->
-            val placeable = measurable.measure(constraints.copy(
-                maxWidth = constraints.maxWidth + 80.dp.roundToPx()
-            ))
-            layout(placeable.width, placeable.height) {
-                placeable.place(0, 0)
-            }
-        }
-            .fillMaxWidth()
-            .background(Color.DarkGray))
 
     }
 }
-
 
 @Preview
 @Composable
@@ -53,6 +91,16 @@ fun LayoutModifierPreview() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             LayoutModifierExample()
+        }
+    }
+}
+
+@Preview
+@Composable
+fun NoLayoutModifierPreview() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            NoLayoutModifierExample()
         }
     }
 }
