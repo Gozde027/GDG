@@ -202,3 +202,21 @@ fun BarChart12_Round_Rect() {
         }
     }
 }
+
+@Preview
+@Composable
+fun BarChart13_Top_Edges_Round_Rect() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_12(
+                prices = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = topEdgesRoundRectBarsComposable,
+                barWidth = 40.dp,
+                modifier = Modifier
+                    .background(Color.DarkGray)
+                    .padding(16.dp)
+            )
+        }
+    }
+}

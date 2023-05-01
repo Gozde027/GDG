@@ -36,8 +36,24 @@ fun RoundRectBar(price: Int, color: Color) {
             .price(price)
             // .height(height)
             .drawBehind {
+                drawRoundRect(
+                    color = color,
+                    cornerRadius = CornerRadius(30.dp.toPx(), 30.dp.toPx())
+                )
+            }
+    )
+}
 
-                val cornerRadius = CornerRadius(20f, 20f)
+@Composable
+fun TopEdgesRoundRectBar(price: Int, color: Color) {
+    Spacer(
+        modifier = Modifier
+            .width(20.dp)
+            .price(price)
+            // .height(height)
+            .drawBehind {
+
+                val cornerRadius = CornerRadius(30f, 30f)
                 val path = Path().apply {
                     addRoundRect(
                         RoundRect(
@@ -51,8 +67,6 @@ fun RoundRectBar(price: Int, color: Color) {
                     )
                 }
                 drawPath(path, color = color)
-
-                //drawRoundRect(color = color, cornerRadius = CornerRadius(30.dp.toPx(), 30.dp.toPx()))
             }
     )
 }
@@ -84,6 +98,18 @@ val roundRectBarsComposable = @Composable {
         RoundRectBar(color = MyBlue, price = 5)
         RoundRectBar(color = MyOrange, price = 23)
         RoundRectBar(color = MyGreen, price = 10)
+    }
+}
+
+val topEdgesRoundRectBarsComposable = @Composable {
+    repeat(1) {
+        TopEdgesRoundRectBar(color = MyGreen, price = 100)
+        TopEdgesRoundRectBar(color = MyOrange, price = 50)
+        TopEdgesRoundRectBar(color = MyBlue, price = 25)
+        TopEdgesRoundRectBar(color = MyGreen, price = 40)
+        TopEdgesRoundRectBar(color = MyBlue, price = 5)
+        TopEdgesRoundRectBar(color = MyOrange, price = 23)
+        TopEdgesRoundRectBar(color = MyGreen, price = 10)
     }
 }
 
@@ -125,6 +151,27 @@ fun RoundRectBarPreview() {
             RoundRectBar(color = MyGreen, price = 90)
             RoundRectBar(color = MyOrange, price = 10)
             RoundRectBar(color = MyBlue, price = 25)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun TopEdgesRoundRectBarPreview() {
+    GDGTheme(darkTheme = true) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            TopEdgesRoundRectBar(color = MyGreen, price = 30)
+            TopEdgesRoundRectBar(color = MyOrange, price = 70)
+            TopEdgesRoundRectBar(color = MyBlue, price = 50)
+            TopEdgesRoundRectBar(color = MyGreen, price = 90)
+            TopEdgesRoundRectBar(color = MyOrange, price = 10)
+            TopEdgesRoundRectBar(color = MyBlue, price = 25)
         }
     }
 }
