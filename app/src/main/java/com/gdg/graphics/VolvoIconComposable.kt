@@ -22,7 +22,6 @@ import kotlin.math.sin
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun VolvoIconComposable() {
-    val colors = listOf(Color(0xFF272829), Color(0xFF212222))
     val textMeasurer = rememberTextMeasurer()
 
     Canvas(modifier = Modifier.size(200.dp)) {
