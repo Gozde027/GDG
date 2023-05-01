@@ -11,21 +11,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Devices.TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gdg.barchart.BarChart_1
-import com.gdg.barchart.BarChart_10
-import com.gdg.barchart.BarChart_11
-import com.gdg.barchart.BarChart_2
-import com.gdg.barchart.BarChart_3
-import com.gdg.barchart.BarChart_4
-import com.gdg.barchart.BarChart_5
-import com.gdg.barchart.BarChart_6
-import com.gdg.barchart.BarChart_7
-import com.gdg.barchart.BarChart_8
-import com.gdg.barchart.BarChart_9
-import com.gdg.chart.components.barComposable
-import com.gdg.chart.components.barsComposable
-import com.gdg.chart.components.priceIndicatorsComposable
-import com.gdg.chart.components.pricesComposable
+import com.gdg.barchart.*
+import com.gdg.chart.components.*
 import com.gdg.ui.theme.GDGTheme
 
 @Preview
@@ -189,6 +176,24 @@ fun BarChart11_Modifier_Padding() {
                 prices = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable,
+                barWidth = 40.dp,
+                modifier = Modifier
+                    .background(Color.DarkGray)
+                    .padding(16.dp)
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BarChart12_Round_Rect() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_12(
+                prices = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = roundRectBarsComposable,
                 barWidth = 40.dp,
                 modifier = Modifier
                     .background(Color.DarkGray)
