@@ -6,20 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gdg.barchart.*
-import com.gdg.barchart.BarGraphScope.barGraphBar
-import com.gdg.chart.components.pricesComposable
+import com.gdg.barchart.BarGraphScope.barGraph
 import com.gdg.ui.theme.GDGTheme
-import com.gdg.ui.theme.Yellow
-import com.gdg.ui.theme.YellowVariant
+import com.gdg.ui.theme.MyPurple
+import com.gdg.ui.theme.MyPurpleVariant
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,13 +56,12 @@ class MainActivity : ComponentActivity() {
                         },
                         bars = { index ->
                             val data = values.map { it.y }
-                            // We have access to Modifier.timeGraphBar() as we are now in TimeGraphScope
                             BarChartComposable(
                                 modifier = Modifier
                                     .padding(horizontal = 8.dp)
-                                    .barGraphBar(
-                                        end = data[index],
-                                        hours = data,
+                                    .barGraph(
+                                        price = data[index],
+                                        prices = data,
                                     )
                             )
                         }
@@ -82,7 +78,7 @@ fun BarChartComposable(modifier: Modifier) {
         .width(25.dp)
         .fillMaxHeight()
         .drawBehind {
-            val brush = Brush.linearGradient(listOf(YellowVariant, Yellow))
+            val brush = Brush.linearGradient(listOf(MyPurpleVariant, MyPurple))
             drawRoundRect(brush, cornerRadius = CornerRadius(10.dp.toPx(), 10.dp.toPx()))
         })
 

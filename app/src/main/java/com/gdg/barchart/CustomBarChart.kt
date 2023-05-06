@@ -71,12 +71,12 @@ fun BarChartGraphComposable(
         val yAxisHeight = totalHeight
         val barPlaceables = barMeasurables.map { measurable ->
             val barParentData = measurable.parentData as BarGraphParentData
-            val barWidth =  ((barParentData.duration * yAxisHeight)/numberOfUnit).roundToInt()
+            val barHeight =  ((barParentData.price * yAxisHeight)/numberOfUnit).roundToInt()
 
             val barPlaceable = measurable.measure(
                 constraints.copy(
-                    minHeight = barWidth,
-                    maxHeight = barWidth
+                    minHeight = barHeight,
+                    maxHeight = barHeight
                 )
             )
             barPlaceable
@@ -84,20 +84,20 @@ fun BarChartGraphComposable(
 
 
         totalWidth = xLabelMesurable.sumOf { it.width } + yLabelMesurable.first().width + yAxisMeasurables.width
-        layout(totalWidth, totalHeight) {
+        layout(constraints.maxWidth, totalHeight) {
             var xPosition = 0
             var yPosition = 0
             yLabelMesurable.forEach {
                 it.place(xPosition, yPosition)
                 yPosition += it.height
             }
-            yAxisMeasurables.place(yLabelMesurable.first().width, 0)
+            yAxisMeasurables.place(yLabelMesurable.maxOf { it.width }, 0)
             xAxisMesurable.place(0, yPosition)
-            xPosition = yLabelMesurable.first().width
+            xPosition = yLabelMesurable.maxOf { it.width }
 
             barPlaceables.forEachIndexed { index, barPlaceable ->
                 val barParentData = barPlaceable.parentData as BarGraphParentData
-                val barOffset = ((barParentData.offset * yAxisHeight)/numberOfUnit).roundToInt()
+                val barOffset = yAxisHeight - barPlaceable.height
 
                 barPlaceable.place(xPosition , barOffset)
                 val dayLabelPlaceable = xLabelMesurable[index]
@@ -156,25 +156,21 @@ fun YAxisLineComposable() {
 @Immutable
 object BarGraphScope {
     @Stable
-    fun Modifier.barGraphBar(
-        end: Float,
-        hours: List<Float>,
+    fun Modifier.barGraph(
+        price: Float,
+        prices: List<Float>,
     ): Modifier {
-        val durationFromEarliestToStartInHours =
-            hours.max() - end
-        // we add extra half of an hour as hour label text is visually centered in its slot
-        val offsetInHours = durationFromEarliestToStartInHours
         return then(
             BarGraphParentData(
-                duration = end,
-                offset = offsetInHours
+                price = price,
+                offset = prices.max() - price
             )
         )
     }
 }
 
 class BarGraphParentData(
-    val duration: Float,
+    val price: Float,
     val offset: Float,
 ) : ParentDataModifier {
     override fun Density.modifyParentData(parentData: Any?) = this@BarGraphParentData
