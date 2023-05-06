@@ -28,12 +28,14 @@ fun NoLayoutModifierExample() {
             "MyBasicColumn",
             Modifier
                 .fillMaxWidth()
+                .padding(bottom = 10.dp)
                 .background(Color.DarkGray)
         )
         Text(
             "MySecondBasicColumn",
             Modifier
                 .fillMaxWidth()
+                .padding(bottom = 10.dp)
                 .background(Color.DarkGray)
         )
         Text(
@@ -59,12 +61,15 @@ fun LayoutModifierExample() {
             "MyBasicColumn",
             Modifier
                 .fillMaxWidth()
+                .padding(bottom = 10.dp)
                 .background(Color.DarkGray)
+
         )
         Text(
             "MySecondBasicColumn",
             Modifier
                 .fillMaxWidth()
+                .padding(bottom = 10.dp)
                 .background(Color.DarkGray)
         )
         Text("MyThridBasicColumn",
