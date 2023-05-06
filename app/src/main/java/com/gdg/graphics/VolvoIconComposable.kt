@@ -31,14 +31,14 @@ fun VolvoIconComposable() {
                 color = Color.Black,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
 
             )
         )
         val componentSize = size / 2f
-        val centerX =  (size.width) / 2
-        val centerY =  (size.height) / 2
-        val radius = componentSize.width/2f
+        val centerX = (size.width) / 2
+        val centerY = (size.height) / 2
+        val radius = componentSize.width / 2f
         drawArc(
             size = componentSize,
             color = Color.Black,
@@ -55,49 +55,59 @@ fun VolvoIconComposable() {
             )
 
         )
-        val arrowLength = 25.dp.toPx()
-        val arrowAngle = Math.toRadians(-55.0).toFloat()
-        val arrowStart =
-            Offset(centerX + radius * cos(arrowAngle), centerY + radius * sin(arrowAngle))
-        val arrowEnd = Offset(
-            arrowStart.x + arrowLength * cos(arrowAngle),
-            arrowStart.y + arrowLength * sin(arrowAngle)
+        val lengthArrow = 25.dp.toPx()
+        val startArrow =
+            Offset(
+                calculateXCoordinate(centerX, radius, -55.0),
+                calculateYCoordinate(centerY, radius, -55.0)
+            )
+        val endArrow = Offset(
+            calculateXCoordinate(startArrow.x, lengthArrow, -55.0),
+            calculateYCoordinate(startArrow.y, lengthArrow, -55.0)
         )
-        val arrowHeadLength = 20.dp.toPx()
-        val arrowHeadLeftPoint = Offset(
-            arrowEnd.x - arrowHeadLength * cos(arrowAngle + Math.toRadians(45.0)).toFloat(),
-            arrowEnd.y - arrowHeadLength * sin(arrowAngle + Math.toRadians(45.0)).toFloat()
+        val arrowCapLength = 20.dp.toPx()
+        val leftArrowCapLength = Offset(
+            calculateXCoordinate(endArrow.x, arrowCapLength, 180.0),
+            calculateYCoordinate(endArrow.y, arrowCapLength, 180.0)
         )
-        val arrowHeadRightPoint = Offset(
-            arrowEnd.x - arrowHeadLength * cos(arrowAngle - Math.toRadians(45.0)).toFloat(),
-            arrowEnd.y - arrowHeadLength * sin(arrowAngle - Math.toRadians(45.0)).toFloat()
+        val rightArrowCapLength = Offset(
+            calculateXCoordinate(endArrow.x, arrowCapLength, 70.0),
+            calculateYCoordinate(endArrow.y, arrowCapLength, 70.0)
         )
         drawLine(
             Color.Black,
-            start = arrowStart,
-            end = arrowEnd,
-            strokeWidth = 5.dp.toPx())
-        drawLine(
-            Color.Black,
-            start = arrowEnd,
-            end = arrowHeadLeftPoint,
+            start = startArrow,
+            end = endArrow,
             strokeWidth = 5.dp.toPx()
         )
         drawLine(
             Color.Black,
-            start = arrowEnd,
-            end = arrowHeadRightPoint,
+            start = endArrow,
+            end = leftArrowCapLength,
+            strokeWidth = 5.dp.toPx()
+        )
+        drawLine(
+            Color.Black,
+            start = endArrow,
+            end = rightArrowCapLength,
             strokeWidth = 5.dp.toPx()
         )
 
+        val xText = (size.width- textResult.size.width)/2f
+        val yText = (size.height - textResult.size.height) / 2f
         drawText(
             textResult,
-            topLeft = Offset(
-                ((size.width - componentSize.width) *3) / 4,
-                ((size.height - componentSize.height) *3) / 4
-            )
+            topLeft = Offset(xText, yText)
         )
     }
+}
+
+private fun calculateYCoordinate(distance: Float, radius: Float, angle: Double): Float {
+    return distance + radius * sin(Math.toRadians(angle).toFloat())
+}
+
+private fun calculateXCoordinate(distance: Float, radius: Float, angle: Double): Float {
+    return distance + radius * cos(Math.toRadians(angle).toFloat())
 }
 
 @Preview
