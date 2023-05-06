@@ -161,7 +161,7 @@ fun BarChart10_BarWidth_Tablet() {
                 prices = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable,
-                barWidth = 40.dp
+                barWidth = 40.dp // What is the use of this width and barsComposable ?
             )
         }
     }
@@ -212,6 +212,25 @@ fun BarChart13_Top_Edges_Round_Rect() {
                 prices = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = topEdgesRoundRectBarsComposable,
+                barWidth = 40.dp,
+                modifier = Modifier
+                    .background(Color.DarkGray)
+                    .padding(16.dp)
+            )
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun BarChart13_Gradient_Rect() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_12(
+                prices = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = gradientRectBarsComposable,
                 barWidth = 40.dp,
                 modifier = Modifier
                     .background(Color.DarkGray)

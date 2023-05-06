@@ -7,15 +7,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.*
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gdg.chart.extension.price
-import com.gdg.ui.theme.GDGTheme
-import com.gdg.ui.theme.MyBlue
-import com.gdg.ui.theme.MyGreen
-import com.gdg.ui.theme.MyOrange
+import com.gdg.ui.theme.*
 
 @Composable
 fun Bar(price: Int, color: Color) {
@@ -71,6 +69,34 @@ fun TopEdgesRoundRectBar(price: Int, color: Color) {
     )
 }
 
+@Composable
+fun GradientRoundRectBar(price: Int, colors: List<Color>) {
+    Spacer(
+        modifier = Modifier
+            .width(20.dp)
+            .price(price)
+            // .height(height)
+            .drawBehind {
+
+                val cornerRadius = CornerRadius(30f, 30f)
+                val path = Path().apply {
+                    addRoundRect(
+                        RoundRect(
+                            rect = Rect(
+                                offset = Offset(0f, 0f),
+                                size = Size(size.width, size.height),
+                            ),
+                            topLeft = cornerRadius,
+                            topRight = cornerRadius,
+                        )
+                    )
+                }
+                val brush = Brush.linearGradient(colors)
+                drawPath(path, brush = brush)
+            }
+    )
+}
+
 val barComposable = @Composable {
     repeat(1) {
         Bar(color = MyGreen, price = 130)
@@ -110,6 +136,18 @@ val topEdgesRoundRectBarsComposable = @Composable {
         TopEdgesRoundRectBar(color = MyBlue, price = 5)
         TopEdgesRoundRectBar(color = MyOrange, price = 23)
         TopEdgesRoundRectBar(color = MyGreen, price = 10)
+    }
+}
+
+val gradientRectBarsComposable = @Composable {
+    repeat(1) {
+        GradientRoundRectBar(colors = listOf(MyGreen, MyGreenVariant) , price = 100)
+        GradientRoundRectBar(colors = listOf(MyOrange, MyOrangeVariant), price = 50)
+        GradientRoundRectBar(colors = listOf(MyBlue, MyBlueVariant), price = 25)
+        GradientRoundRectBar(colors = listOf(MyGreen, MyGreenVariant), price = 40)
+        GradientRoundRectBar(colors = listOf(MyBlue, MyBlueVariant), price = 5)
+        GradientRoundRectBar(colors = listOf(MyOrange, MyOrangeVariant), price = 23)
+        GradientRoundRectBar(colors = listOf(MyGreen, MyGreenVariant), price = 10)
     }
 }
 
