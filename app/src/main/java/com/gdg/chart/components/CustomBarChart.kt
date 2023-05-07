@@ -1,7 +1,9 @@
-package com.gdg.barchart
+package com.gdg.chart.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -12,8 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.ParentDataModifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
+import com.gdg.BarChartComposable
+import com.gdg.chart.components.BarGraphScope.barGraph
+import com.gdg.ui.theme.GDGTheme
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -54,16 +60,14 @@ fun BarChartGraphComposable(
             constraints,
         ->
         var totalHeight = 0
-        var totalWidth = 0
-        val xLabelMesurable = xLabelsMeasurables.map { measurable ->
+        val xLabelPlaceable = xLabelsMeasurables.map { measurable ->
             val measure = measurable.measure(constraints)
-            totalWidth += measure.width
             measure
         }
-        val xAxisMesurable = xAxisLineMeasurables.first().measure(constraints)
-        val yAxisMeasurables = yAxisLineMeasurables.first().measure(constraints)
+        val xAxisPlaceable = xAxisLineMeasurables.first().measure(constraints)
+        val yAxisPlaceable = yAxisLineMeasurables.first().measure(constraints)
 
-        val yLabelMesurable = yLabelsMeasurables.map { measurable ->
+        val yLabelPlaceables = yLabelsMeasurables.map { measurable ->
             val measure = measurable.measure(constraints)
             totalHeight += measure.height
             measure
@@ -81,31 +85,26 @@ fun BarChartGraphComposable(
             )
             barPlaceable
         }
-
-
-        totalWidth = xLabelMesurable.sumOf { it.width } + yLabelMesurable.first().width + yAxisMeasurables.width
         layout(constraints.maxWidth, totalHeight) {
             var xPosition = 0
             var yPosition = 0
-            yLabelMesurable.forEach {
+            yLabelPlaceables.forEach {
                 it.place(xPosition, yPosition)
                 yPosition += it.height
             }
-            yAxisMeasurables.place(yLabelMesurable.maxOf { it.width }, 0)
-            xAxisMesurable.place(0, yPosition)
-            xPosition = yLabelMesurable.maxOf { it.width }
+            yAxisPlaceable.place(yLabelPlaceables.maxOf { it.width }, 0)
+            xAxisPlaceable.place(0, yPosition)
+            xPosition = yLabelPlaceables.maxOf { it.width }
 
             barPlaceables.forEachIndexed { index, barPlaceable ->
-                val barParentData = barPlaceable.parentData as BarGraphParentData
                 val barOffset = yAxisHeight - barPlaceable.height
-
                 barPlaceable.place(xPosition , barOffset)
-                val dayLabelPlaceable = xLabelMesurable[index]
+
+                val dayLabelPlaceable = xLabelPlaceable[index]
                 dayLabelPlaceable.place(xPosition, yPosition)
+
                 xPosition += barPlaceable.width
             }
-
-
         }
     }
 }
@@ -158,12 +157,12 @@ object BarGraphScope {
     @Stable
     fun Modifier.barGraph(
         price: Float,
-        prices: List<Float>,
+        priceList: List<Float>,
     ): Modifier {
         return then(
             BarGraphParentData(
                 price = price,
-                offset = prices.max() - price
+                offset = priceList.max() - price
             )
         )
     }
@@ -177,3 +176,56 @@ class BarGraphParentData(
 }
 
 data class Point(val x: Float, val y: Float)
+
+@Preview
+@Composable
+fun CustomBarChartPreview() {
+    GDGTheme {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            //BarChart_1(prices = pricesComposable)
+
+            val values = listOf(
+                Point(1f, 1f),
+                Point(2f, 2f),
+                Point(3f, 3f),
+                Point(4f, 4f),
+                Point(5f, 5f),
+                Point(6f, 6f),
+                Point(7f, 7f),
+                Point(8f, 8f),
+                Point(9f, 9f),
+            )
+            val yValue = values.map { it.y }.sortedDescending()
+            BarChartGraphComposable(
+                numberOfUnit = values.size,
+                modifier = Modifier
+                    .wrapContentSize(),
+                xAxisLine = {
+                    XAxisLineComposable()
+                },
+                yAxisLine = {
+                    YAxisLineComposable()
+                },
+                xLabel = { index ->
+                    val data = values[index]
+                    XAxisLabelComposable(data.x)
+                },
+                yLabel = { index ->
+                    val data = yValue[index]
+                    YAxisLabelComposable(data)
+                },
+                bars = { index ->
+                    val data = values.map { it.y }
+                    BarChartComposable(
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp)
+                            .barGraph(
+                                price = data[index],
+                                priceList = data,
+                            )
+                    )
+                }
+            )
+        }
+    }
+}
