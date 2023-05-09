@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.*
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gdg.chart.extension.price
@@ -33,7 +33,7 @@ fun RoundRectBar(price: Int, color: Color) {
             .width(20.dp)
             .price(price)
             // .height(height)
-            .drawBehind {
+            .drawWithContent {
                 drawRoundRect(
                     color = color,
                     cornerRadius = CornerRadius(30.dp.toPx(), 30.dp.toPx())
@@ -50,7 +50,6 @@ fun TopEdgesRoundRectBar(price: Int, color: Color) {
             .price(price)
             // .height(height)
             .drawBehind {
-
                 val cornerRadius = CornerRadius(30f, 30f)
                 val path = Path().apply {
                     addRoundRect(
@@ -64,7 +63,7 @@ fun TopEdgesRoundRectBar(price: Int, color: Color) {
                         )
                     )
                 }
-                drawPath(path, color = color)
+                drawPath(path = path, color = color)
             }
     )
 }
@@ -92,7 +91,7 @@ fun GradientRoundRectBar(price: Int, colors: List<Color>) {
                     )
                 }
                 val brush = Brush.linearGradient(colors)
-                drawPath(path, brush = brush)
+                drawPath(path = path, brush = brush)
             }
     )
 }

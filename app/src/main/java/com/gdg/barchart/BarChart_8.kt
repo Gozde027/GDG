@@ -54,7 +54,7 @@ fun BarChart_8(
 
             val lastPrice = pricePlaceables.last()
             val lastIndicator = indicatorPlaceables.last()
-            val lastPriceBaseline = lastPrice.getFirstBaseline()
+            val lastPriceBaseline = lastPrice.getFirstBaseline() // Reason for first baseline, instead of last ?
             val barBaseline =
                 (layoutHeight) - lastPrice.height + lastPriceBaseline + lastIndicator.height
 
