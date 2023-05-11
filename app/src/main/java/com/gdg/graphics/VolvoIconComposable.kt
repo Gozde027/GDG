@@ -1,20 +1,20 @@
 package com.gdg.graphics
 
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
@@ -29,7 +29,7 @@ fun VolvoIconComposable() {
     val textMeasurer = rememberTextMeasurer()
     Spacer(
         modifier = Modifier
-            .size(200.dp)
+            .fillMaxSize()
             .drawWithCache {
                 val componentSize = size / 2f
                 val centerX = (size.width) / 2
@@ -46,6 +46,9 @@ fun VolvoIconComposable() {
                     ),
                     constraints = Constraints.fixedWidth((radius * 4f / 3f).toInt())
                 )
+
+                val arrowSize = size.width / 15
+                val arrowCapLength =  size.width / 18
                 onDrawBehind {
 
                     drawArc(
@@ -55,7 +58,7 @@ fun VolvoIconComposable() {
                         sweepAngle = 340f,
                         useCenter = false,
                         style = Stroke(
-                            width = 12f,
+                            width = 15f,
                             cap = StrokeCap.Round
                         ),
                         topLeft = Offset(
@@ -64,16 +67,18 @@ fun VolvoIconComposable() {
                         )
 
                     )
-                    val lengthArrow = 25.dp.toPx()
+
                     val startArrow =
                         Offset(
                             calculateXCoordinate(centerX, radius, -55.0),
                             calculateYCoordinate(centerY, radius, -55.0)
                         )
                     val endArrow = Offset(
-                        calculateXCoordinate(startArrow.x, lengthArrow, -55.0),
-                        calculateYCoordinate(startArrow.y, lengthArrow, -55.0)
+                        calculateXCoordinate(startArrow.x, arrowSize, -55.0),
+                        calculateYCoordinate(startArrow.y, arrowSize, -55.0)
                     )
+
+
                     drawLine(
                         color = Color.Black,
                         start = startArrow,
@@ -81,7 +86,6 @@ fun VolvoIconComposable() {
                         strokeWidth = 5.dp.toPx()
                     )
 
-                    val arrowCapLength = 20.dp.toPx()
                     val leftArrowCapLength = Offset(
                         calculateXCoordinate(endArrow.x, arrowCapLength, 180.0),
                         calculateYCoordinate(endArrow.y, arrowCapLength, 180.0)
@@ -90,15 +94,18 @@ fun VolvoIconComposable() {
                         calculateXCoordinate(endArrow.x, arrowCapLength, 70.0),
                         calculateYCoordinate(endArrow.y, arrowCapLength, 70.0)
                     )
+                    val leftArrowCapStartOffset = Offset(endArrow.x + 3, endArrow.y + 2)
                     drawLine(
                         Color.Black,
-                        start = endArrow,
+                        start = leftArrowCapStartOffset,
                         end = leftArrowCapLength,
                         strokeWidth = 5.dp.toPx()
                     )
+
+                    val rightArrowCapStartOffset = Offset(endArrow.x - 3, endArrow.y - 2)
                     drawLine(
                         Color.Black,
-                        start = endArrow,
+                        start = rightArrowCapStartOffset,
                         end = rightArrowCapLength,
                         strokeWidth = 5.dp.toPx()
                     )
@@ -128,8 +135,9 @@ private fun calculateXCoordinate(distance: Float, radius: Float, angle: Double):
 @Composable
 fun VolvoIconComposablePreview() {
     GDGTheme {
+        val configuration = LocalConfiguration.current
         Surface(
-            modifier = Modifier.size(200.dp),
+            modifier = Modifier.size(configuration.screenWidthDp.dp),
             color = Color.White
         ) {
             VolvoIconComposable()
