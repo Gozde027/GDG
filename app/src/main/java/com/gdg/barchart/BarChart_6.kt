@@ -11,9 +11,9 @@ import com.gdg.chart.extension.layoutHeight
 // Use : Constraints.fixedWidth
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun BarChart_6(percentageComposables: @Composable () -> Unit, priceIndicators: @Composable () -> Unit) {
+fun BarChart_6(percentageComposables: @Composable () -> Unit, indicatorComposables: @Composable () -> Unit) {
 
-    Layout(contents = listOf(percentageComposables, priceIndicators),
+    Layout(contents = listOf(percentageComposables, indicatorComposables),
         measurePolicy = { (percentageMeasurables, indicatorMeasurables), constraints ->
 
             // MEASUREMENT SCOPE

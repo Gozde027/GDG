@@ -20,14 +20,14 @@ import kotlin.math.roundToInt
 @Composable
 fun BarChart_11(
     percentageComposables: @Composable () -> Unit,
-    priceIndicators: @Composable () -> Unit,
-    bars: @Composable () -> Unit,
+    indicatorsComposables: @Composable () -> Unit,
+    barComposables: @Composable () -> Unit,
     barWidth: Dp = 12.dp,
     modifier: Modifier = Modifier
 ) {
 
     val barWidthInPixel = with(LocalDensity.current) { barWidth.toPx() }.roundToInt()
-    Layout(contents = listOf(percentageComposables, priceIndicators, bars),
+    Layout(contents = listOf(percentageComposables, indicatorsComposables, barComposables),
         modifier = modifier,
         measurePolicy = { (percentageMeasurables, indicatorMeasurables, barMeasurables), constraints ->
 

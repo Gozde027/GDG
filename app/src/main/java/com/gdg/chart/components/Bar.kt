@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gdg.chart.extension.PercentageParentDataModifier
+import com.gdg.chart.extension.percentage
 import com.gdg.ui.theme.GDGTheme
 import com.gdg.ui.theme.MyBlue
 import com.gdg.ui.theme.MyBlueVariant
@@ -43,12 +44,6 @@ fun Bar(@IntRange(0, 100) percentage: Int, color: Color) {
             .percentage(percentage)
     )
 }
-
-fun Modifier.percentage(price: Int) = this.then(
-    PercentageParentDataModifier(
-        percentage = price
-    )
-)
 
 @Composable
 fun RoundRectBar(price: Int, color: Color) {

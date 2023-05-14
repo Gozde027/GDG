@@ -23,11 +23,11 @@ import com.gdg.ui.theme.GDGTheme
 @Composable
 fun BarChart_9(
     percentageComposables: @Composable () -> Unit,
-    priceIndicators: @Composable () -> Unit,
-    bars: @Composable () -> Unit
+    indicatorComposables: @Composable () -> Unit,
+    barComposables: @Composable () -> Unit
 ) {
 
-    Layout(contents = listOf(percentageComposables, priceIndicators, bars),
+    Layout(contents = listOf(percentageComposables, indicatorComposables, barComposables),
         measurePolicy = { (percentageMeasurables, indicatorMeasurables, barMeasurables), constraints ->
 
             // MEASUREMENT SCOPE
@@ -107,8 +107,8 @@ fun BarChart9_AddBars() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
                 percentageComposables = percentagesComposable,
-                priceIndicators = indicatorsComposable,
-                bars = barsComposable
+                indicatorComposables = indicatorsComposable,
+                barComposables = barsComposable
             )
         }
     }

@@ -14,9 +14,9 @@ import com.gdg.chart.extension.layoutHeight
  */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun BarChart_5(percentageComposables: @Composable () -> Unit, priceIndicators: @Composable () -> Unit) {
+fun BarChart_5(percentageComposables: @Composable () -> Unit, indicatorComposables: @Composable () -> Unit) {
 
-    Layout(contents = listOf(percentageComposables, priceIndicators),
+    Layout(contents = listOf(percentageComposables, indicatorComposables),
         measurePolicy = { (percentageMeasurables, indicatorMeasurables), constraints ->
 
             // PRICE MEASUREMENT

@@ -14,10 +14,10 @@ import com.gdg.chart.extension.layoutHeight
 @Composable
 fun BarChart_7(
     percentageComposables: @Composable () -> Unit,
-    priceIndicators: @Composable () -> Unit
+    indicatorComposables: @Composable () -> Unit
 ) {
 
-    Layout(contents = listOf(percentageComposables, priceIndicators),
+    Layout(contents = listOf(percentageComposables, indicatorComposables),
         measurePolicy = { (percentageMeasurables, indicatorMeasurables), constraints ->
 
             // MEASUREMENT SCOPE

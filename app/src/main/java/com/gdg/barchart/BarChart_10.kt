@@ -1,6 +1,5 @@
 package com.gdg.barchart
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.layout.Layout
@@ -20,13 +19,13 @@ import kotlin.math.roundToInt
 @Composable
 fun BarChart_10(
     percentageComposables: @Composable () -> Unit,
-    priceIndicators: @Composable () -> Unit,
-    bars: @Composable () -> Unit,
+    indicatorComposables: @Composable () -> Unit,
+    barComposables: @Composable () -> Unit,
     barWidth: Dp = 12.dp
 ) {
 
     val barWidthInPixel = with(LocalDensity.current) { barWidth.toPx() }.roundToInt()
-    Layout(contents = listOf(percentageComposables, priceIndicators, bars),
+    Layout(contents = listOf(percentageComposables, indicatorComposables, barComposables),
         measurePolicy = { (percentageMeasurables, indicatorMeasurables, barMeasurables), constraints ->
 
             // MEASUREMENT SCOPE

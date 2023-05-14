@@ -17,15 +17,15 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BarChart_12(
-    prices: @Composable () -> Unit,
-    priceIndicators: @Composable () -> Unit,
-    bars: @Composable () -> Unit,
+    percentageComposables: @Composable () -> Unit,
+    indicatorComposables: @Composable () -> Unit,
+    barComposables: @Composable () -> Unit,
     barWidth: Dp = 12.dp,
     modifier: Modifier = Modifier
 ) {
 
     val barWidthInPixel = with(LocalDensity.current) { barWidth.toPx() }.roundToInt()
-    Layout(contents = listOf(prices, priceIndicators, bars),
+    Layout(contents = listOf(percentageComposables, indicatorComposables, barComposables),
         modifier = modifier,
         measurePolicy = { (priceMeasurables, indicatorMeasurables, barMeasurables), constraints ->
 
