@@ -87,26 +87,12 @@ fun BarChart7_PriceIndicators_AlignWithBaseline() {
     }
 }
 
-@Preview(device = Devices.TABLET)
+@Preview(device = TABLET)
 @Composable
 fun BarChart7_PriceIndicators_AlignWithBaseline_Landscape() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_7(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
-        }
-    }
-}
-
-@Preview
-@Composable
-fun BarChart8_Add_OneBar() {
-    GDGTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_8(
-                percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
-                bars = barComposable
-            )
         }
     }
 }

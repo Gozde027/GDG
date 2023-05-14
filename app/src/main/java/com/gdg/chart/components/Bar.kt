@@ -56,7 +56,6 @@ fun RoundRectBar(price: Int, color: Color) {
         modifier = Modifier
             .width(20.dp)
             .percentage(price)
-            // .height(height)
             .drawWithContent {
                 drawRoundRect(
                     color = color,
@@ -72,7 +71,6 @@ fun TopEdgesRoundRectBar(price: Int, color: Color) {
         modifier = Modifier
             .width(20.dp)
             .percentage(price)
-            // .height(height)
             .drawBehind {
                 val cornerRadius = CornerRadius(30f, 30f)
                 val path = Path().apply {
@@ -98,9 +96,7 @@ fun GradientRoundRectBar(price: Int, colors: List<Color>) {
         modifier = Modifier
             .width(20.dp)
             .percentage(price)
-            // .height(height)
             .drawBehind {
-
                 val cornerRadius = CornerRadius(30f, 30f)
                 val path = Path().apply {
                     addRoundRect(
@@ -164,7 +160,7 @@ val topEdgesRoundRectBarsComposable = @Composable {
 
 val gradientRectBarsComposable = @Composable {
     repeat(1) {
-        GradientRoundRectBar(colors = listOf(MyGreen, MyGreenVariant) , price = 100)
+        GradientRoundRectBar(colors = listOf(MyGreen, MyGreenVariant), price = 100)
         GradientRoundRectBar(colors = listOf(MyOrange, MyOrangeVariant), price = 50)
         GradientRoundRectBar(colors = listOf(MyBlue, MyBlueVariant), price = 25)
         GradientRoundRectBar(colors = listOf(MyGreen, MyGreenVariant), price = 40)
