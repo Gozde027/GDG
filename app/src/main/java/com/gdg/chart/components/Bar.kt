@@ -2,24 +2,36 @@ package com.gdg.chart.components
 
 import androidx.annotation.IntRange
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.*
-import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gdg.chart.extension.PercentageParentDataModifier
 import com.gdg.ui.theme.GDGTheme
 import com.gdg.ui.theme.MyBlue
+import com.gdg.ui.theme.MyBlueVariant
 import com.gdg.ui.theme.MyGreen
+import com.gdg.ui.theme.MyGreenVariant
 import com.gdg.ui.theme.MyOrange
-import com.gdg.chart.extension.price
-import com.gdg.ui.theme.*
+import com.gdg.ui.theme.MyOrangeVariant
 
 
 @Composable
@@ -43,7 +55,7 @@ fun RoundRectBar(price: Int, color: Color) {
     Spacer(
         modifier = Modifier
             .width(20.dp)
-            .price(price)
+            .percentage(price)
             // .height(height)
             .drawWithContent {
                 drawRoundRect(
@@ -59,7 +71,7 @@ fun TopEdgesRoundRectBar(price: Int, color: Color) {
     Spacer(
         modifier = Modifier
             .width(20.dp)
-            .price(price)
+            .percentage(price)
             // .height(height)
             .drawBehind {
                 val cornerRadius = CornerRadius(30f, 30f)
@@ -85,7 +97,7 @@ fun GradientRoundRectBar(price: Int, colors: List<Color>) {
     Spacer(
         modifier = Modifier
             .width(20.dp)
-            .price(price)
+            .percentage(price)
             // .height(height)
             .drawBehind {
 

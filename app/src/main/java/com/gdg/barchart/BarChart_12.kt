@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gdg.chart.extension.PriceParentDataModifier
+import com.gdg.chart.extension.PercentageParentDataModifier
 import com.gdg.chart.extension.calculateBaseline
 import com.gdg.chart.extension.getFirstBaseline
 import kotlin.math.roundToInt
@@ -73,8 +73,8 @@ fun BarChart_12(
             val paddingForBar = totalAvailablePaddingForBar / numberOfPadding
 
             val heights = barMeasurables.map {
-                val test = it.parentData as PriceParentDataModifier
-                (test.price * totalBarHeight) / 100
+                val test = it.parentData as PercentageParentDataModifier
+                (test.percentage * totalBarHeight) / 100
             }
 
             val barPlaceables = barMeasurables.mapIndexed { index, barMeasurable ->

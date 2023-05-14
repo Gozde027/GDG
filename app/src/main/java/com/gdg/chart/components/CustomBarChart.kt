@@ -86,7 +86,7 @@ fun BarChartGraphComposable(
             barPlaceable
         }
 
-        totalWidth = xLabelMesurable.sumOf { it.width } + yLabelMesurable.first().width + yAxisMeasurables.width
+        val totalWidth = xLabelPlaceable.sumOf { it.width } + yLabelPlaceables.first().width + yAxisPlaceable.width
         layout(totalWidth, totalHeight) {
             var xPosition = 0
             var yPosition = 0
