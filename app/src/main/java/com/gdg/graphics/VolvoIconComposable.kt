@@ -1,15 +1,20 @@
 package com.gdg.graphics
 
+import android.util.Log
+import androidx.compose.animation.core.*
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.*
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +25,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gdg.ui.theme.GDGTheme
+import kotlinx.coroutines.delay
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -27,6 +33,7 @@ import kotlin.math.sin
 @Composable
 fun VolvoIconComposable() {
     val textMeasurer = rememberTextMeasurer()
+
     Spacer(
         modifier = Modifier
             .fillMaxSize()
@@ -36,21 +43,41 @@ fun VolvoIconComposable() {
                 val centerY = (size.height) / 2
                 val radius = componentSize.width / 2f
 
-                val textResult = textMeasurer.measure(
-                    text = AnnotatedString("Volvo"),
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                    ),
-                    constraints = Constraints.fixedWidth((radius * 4f / 3f).toInt())
-                )
 
                 val arrowSize = size.width / 15
-                val arrowCapLength =  size.width / 18
-                onDrawBehind {
+                val arrowCapLength = size.width / 18
 
+                val startArrow =
+                    Offset(
+                        calculateXCoordinate(centerX, radius, -55.0),
+                        calculateYCoordinate(centerY, radius, -55.0)
+                    )
+                val endArrow = Offset(
+                    calculateXCoordinate(startArrow.x, arrowSize, -55.0),
+                    calculateYCoordinate(startArrow.y, arrowSize, -55.0)
+                )
+
+                val leftArrowCapLength = Offset(
+                    calculateXCoordinate(endArrow.x, arrowCapLength, 180.0),
+                    calculateYCoordinate(endArrow.y, arrowCapLength, 180.0)
+                )
+                val rightArrowCapLength = Offset(
+                    calculateXCoordinate(endArrow.x, arrowCapLength, 70.0),
+                    calculateYCoordinate(endArrow.y, arrowCapLength, 70.0)
+                )
+                val leftArrowCapStartOffset = Offset(endArrow.x + 3, endArrow.y + 2)
+
+                val rightArrowCapStartOffset = Offset(endArrow.x - 3, endArrow.y - 2)
+
+                val path = Path().apply {
+                    moveTo(startArrow.x, startArrow.y)
+                    lineTo(endArrow.x, endArrow.y)
+                    moveTo(leftArrowCapStartOffset.x, leftArrowCapStartOffset.y)
+                    lineTo(leftArrowCapLength.x, leftArrowCapLength.y)
+                    moveTo(rightArrowCapStartOffset.x, rightArrowCapStartOffset.y)
+                    lineTo(rightArrowCapLength.x, rightArrowCapLength.y)
+                }
+                onDrawBehind {
                     drawArc(
                         size = componentSize,
                         color = Color.Black,
@@ -67,55 +94,27 @@ fun VolvoIconComposable() {
                         )
 
                     )
+                    drawPath(path = path, color = Color.Black, style = Stroke(5.dp.toPx()))
 
-                    val startArrow =
-                        Offset(
-                            calculateXCoordinate(centerX, radius, -55.0),
-                            calculateYCoordinate(centerY, radius, -55.0)
-                        )
-                    val endArrow = Offset(
-                        calculateXCoordinate(startArrow.x, arrowSize, -55.0),
-                        calculateYCoordinate(startArrow.y, arrowSize, -55.0)
-                    )
-
-
-                    drawLine(
-                        color = Color.Black,
-                        start = startArrow,
-                        end = endArrow,
-                        strokeWidth = 5.dp.toPx()
-                    )
-
-                    val leftArrowCapLength = Offset(
-                        calculateXCoordinate(endArrow.x, arrowCapLength, 180.0),
-                        calculateYCoordinate(endArrow.y, arrowCapLength, 180.0)
-                    )
-                    val rightArrowCapLength = Offset(
-                        calculateXCoordinate(endArrow.x, arrowCapLength, 70.0),
-                        calculateYCoordinate(endArrow.y, arrowCapLength, 70.0)
-                    )
-                    val leftArrowCapStartOffset = Offset(endArrow.x + 3, endArrow.y + 2)
-                    drawLine(
-                        Color.Black,
-                        start = leftArrowCapStartOffset,
-                        end = leftArrowCapLength,
-                        strokeWidth = 5.dp.toPx()
-                    )
-
-                    val rightArrowCapStartOffset = Offset(endArrow.x - 3, endArrow.y - 2)
-                    drawLine(
-                        Color.Black,
-                        start = rightArrowCapStartOffset,
-                        end = rightArrowCapLength,
-                        strokeWidth = 5.dp.toPx()
+                    val textResult = textMeasurer.measure(
+                        text = AnnotatedString("Volvo"),
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 20.sp,
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                        constraints = Constraints.fixedWidth((radius * 4f / 3f).toInt())
                     )
 
                     val xText = (size.width - textResult.size.width) / 2f
                     val yText = (size.height - textResult.size.height) / 2f
+
                     drawText(
                         textLayoutResult = textResult,
                         topLeft = Offset(xText, yText)
                     )
+
                 }
 
             }
@@ -142,6 +141,7 @@ fun VolvoIconComposablePreview() {
         ) {
             VolvoIconComposable()
         }
+
     }
 
 }
