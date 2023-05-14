@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import com.gdg.barchart.BarChart_1
 import com.gdg.chart.components.*
-import com.gdg.chart.components.BarGraphScope.barGraph
 import com.gdg.ui.theme.GDGTheme
 import com.gdg.ui.theme.MyPurple
 import com.gdg.ui.theme.MyPurpleVariant
@@ -25,7 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             GDGTheme {
                 Surface(color = MaterialTheme.colorScheme.surface) {
-                    BarChart_1(percentageComposables = pricesComposable)
+                    BarChart_1(percentageComposables = percentagesComposable)
                 }
             }
         }

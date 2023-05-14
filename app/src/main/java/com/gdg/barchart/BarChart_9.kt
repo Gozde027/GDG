@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import com.gdg.chart.components.barsComposable
 import com.gdg.chart.components.indicatorsComposable
-import com.gdg.chart.components.pricesComposable
+import com.gdg.chart.components.percentagesComposable
 import com.gdg.chart.extension.PercentageParentDataModifier
 import com.gdg.chart.extension.availableSpaceSize
 import com.gdg.chart.extension.calculateBaseline
@@ -106,7 +106,7 @@ fun BarChart9_AddBars() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
-                percentageComposables = pricesComposable,
+                percentageComposables = percentagesComposable,
                 priceIndicators = indicatorsComposable,
                 bars = barsComposable
             )
