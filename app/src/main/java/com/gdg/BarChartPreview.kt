@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Devices.FOLDABLE
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_XL
 import androidx.compose.ui.tooling.preview.Devices.TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,7 +22,7 @@ import com.gdg.ui.theme.GDGTheme
 fun BarChart1_WithPrices_FullHeight() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_1(prices = pricesComposable)
+            BarChart_1(percentageComposables = pricesComposable)
         }
     }
 }
@@ -30,7 +32,7 @@ fun BarChart1_WithPrices_FullHeight() {
 fun BarChart2_WithPrices_CustomHeight() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_2(prices = pricesComposable)
+            BarChart_2(percentageComposables = pricesComposable)
         }
     }
 }
@@ -40,7 +42,7 @@ fun BarChart2_WithPrices_CustomHeight() {
 fun BarChart3_WithPrices_AlignByMax() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_3(prices = pricesComposable)
+            BarChart_3(percentageComposables = pricesComposable)
         }
     }
 }
@@ -50,7 +52,7 @@ fun BarChart3_WithPrices_AlignByMax() {
 fun BarChart4_WithPrices_AlignWithEqualSpacer() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_4(prices = pricesComposable)
+            BarChart_4(percentageComposables = pricesComposable)
         }
     }
 }
@@ -60,7 +62,7 @@ fun BarChart4_WithPrices_AlignWithEqualSpacer() {
 fun BarChart5_AddPriceIndicators_WithProblems() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_5(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
+            BarChart_5(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
         }
     }
 }
@@ -70,7 +72,7 @@ fun BarChart5_AddPriceIndicators_WithProblems() {
 fun BarChart6_PriceIndicators_FixedWidthConstraint() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_6(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
+            BarChart_6(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
         }
     }
 }
@@ -80,7 +82,7 @@ fun BarChart6_PriceIndicators_FixedWidthConstraint() {
 fun BarChart7_PriceIndicators_AlignWithBaseline() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_7(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
+            BarChart_7(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
         }
     }
 }
@@ -90,7 +92,7 @@ fun BarChart7_PriceIndicators_AlignWithBaseline() {
 fun BarChart7_PriceIndicators_AlignWithBaseline_Landscape() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_7(prices = pricesComposable, priceIndicators = priceIndicatorsComposable)
+            BarChart_7(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
         }
     }
 }
@@ -101,7 +103,7 @@ fun BarChart8_Add_OneBar() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_8(
-                prices = pricesComposable,
+                percentageComposables = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barComposable
             )
@@ -115,7 +117,7 @@ fun BarChart9_AlignBars() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
-                prices = pricesComposable,
+                percentageComposables = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable
             )
@@ -129,7 +131,7 @@ fun BarChart9_AlignBars_Tablet() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
-                prices = pricesComposable,
+                percentageComposables = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable
             )
@@ -143,7 +145,7 @@ fun BarChart10_BarWidth() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
-                prices = pricesComposable,
+                percentageComposables = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable,
                 barWidth = 40.dp
@@ -158,7 +160,37 @@ fun BarChart10_BarWidth_Tablet() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
-                prices = pricesComposable,
+                percentageComposables = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = barsComposable,
+                barWidth = 40.dp
+            )
+        }
+    }
+}
+
+@Preview(device = FOLDABLE)
+@Composable
+fun BarChart10_BarWidth_Foldable() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_10(
+                percentageComposables = pricesComposable,
+                priceIndicators = priceIndicatorsComposable,
+                bars = barsComposable,
+                barWidth = 80.dp
+            )
+        }
+    }
+}
+
+@Preview(device = PIXEL_XL)
+@Composable
+fun BarChart10_BarWidth_PixelXL() {
+    GDGTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            BarChart_10(
+                percentageComposables = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable,
                 barWidth = 40.dp // What is the use of this width and barsComposable ?
@@ -173,7 +205,7 @@ fun BarChart11_Modifier_Padding() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_11(
-                prices = pricesComposable,
+                percentageComposables = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable,
                 barWidth = 40.dp,

@@ -4,17 +4,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ParentDataModifier
 import androidx.compose.ui.unit.Density
 
-class PriceParentDataModifier(
-    val price: Int
+class PercentageParentDataModifier(
+    val percentage: Int
 ) : ParentDataModifier {
 
     override fun Density.modifyParentData(parentData: Any?): Any? {
-        return this@PriceParentDataModifier
+        return this@PercentageParentDataModifier
     }
 }
 
-fun Modifier.price(price: Int) = this.then(
-    PriceParentDataModifier(
-        price = price
+fun Modifier.percentage(price: Int) = this.then(
+    PercentageParentDataModifier(
+        percentage = price
     )
 )

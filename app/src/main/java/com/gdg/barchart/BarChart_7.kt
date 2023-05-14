@@ -1,48 +1,43 @@
 package com.gdg.barchart
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.layout.AlignmentLine
-import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.layout.Placeable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
-import com.gdg.chart.components.priceIndicatorsComposable
-import com.gdg.chart.components.pricesComposable
-import com.gdg.chart.extension.calculateBaseline
-import com.gdg.ui.theme.GDGTheme
+import com.gdg.chart.extension.availableSpaceSize
+import com.gdg.chart.extension.getFirstBaseline
+import com.gdg.chart.extension.layoutHeight
 
 // Indicator problem 2: alignment with text baseline
 // Mention : Baseline
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun BarChart_7(prices: @Composable () -> Unit, priceIndicators: @Composable () -> Unit) {
+fun BarChart_7(
+    percentageComposables: @Composable () -> Unit,
+    priceIndicators: @Composable () -> Unit
+) {
 
-    Layout(contents = listOf(prices, priceIndicators),
-        measurePolicy = { (priceMeasurables, indicatorMeasurables), constraints ->
-
-            val layoutHeight = constraints.maxHeight
-            val layoutWidth = constraints.maxWidth
+    Layout(contents = listOf(percentageComposables, priceIndicators),
+        measurePolicy = { (percentageMeasurables, indicatorMeasurables), constraints ->
 
             // MEASUREMENT SCOPE
 
             // PRICE MEASUREMENT
-            val pricePlaceables = priceMeasurables.map { it.measure(constraints) }
-            val totalOfPricesHeight = pricePlaceables.sumOf { it.height }
-            val numberOfPrices = pricePlaceables.size
-            val spaceBetweenPrices = (layoutHeight - totalOfPricesHeight) / (numberOfPrices - 1)
-            val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
+            val pricePlaceables = percentageMeasurables.map { it.measure(constraints) }
 
+            val layoutHeight = pricePlaceables.layoutHeight(constraints)
+            val layoutWidth = constraints.maxWidth
+
+            val spaceBetweenPrices = pricePlaceables.availableSpaceSize(layoutHeight)
+
+            val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
 
             //INDICATOR MEASUREMENT
             val indicatorWidth = constraints.maxWidth - maxWidthOfPrice
             val indicatorConstraint = Constraints.fixedWidth(indicatorWidth)
             val indicatorPlaceables = indicatorMeasurables.map { it.measure(indicatorConstraint) }
 
-            val priceBaselines = pricePlaceables.map { it.calculateBaseline() }
+            val priceBaselines = pricePlaceables.map { it.getFirstBaseline() }
 
             // PLACEMENT SCOPE
             layout(layoutWidth, layoutHeight) {

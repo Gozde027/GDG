@@ -1,5 +1,6 @@
 package com.gdg.chart.components
 
+import androidx.annotation.IntRange
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -12,19 +13,30 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gdg.chart.extension.PercentageParentDataModifier
+import com.gdg.ui.theme.GDGTheme
+import com.gdg.ui.theme.MyBlue
+import com.gdg.ui.theme.MyGreen
+import com.gdg.ui.theme.MyOrange
 import com.gdg.chart.extension.price
 import com.gdg.ui.theme.*
 
+
 @Composable
-fun Bar(price: Int, color: Color) {
+fun Bar(@IntRange(0, 100) percentage: Int, color: Color) {
     Box(
         modifier = Modifier
             .width(20.dp)
-            .price(price)
-            // .height(height)
             .background(color = color)
+            .percentage(percentage)
     )
 }
+
+fun Modifier.percentage(price: Int) = this.then(
+    PercentageParentDataModifier(
+        percentage = price
+    )
+)
 
 @Composable
 fun RoundRectBar(price: Int, color: Color) {
@@ -98,19 +110,19 @@ fun GradientRoundRectBar(price: Int, colors: List<Color>) {
 
 val barComposable = @Composable {
     repeat(1) {
-        Bar(color = MyGreen, price = 130)
+        Bar(color = MyGreen, percentage = 30)
     }
 }
 
 val barsComposable = @Composable {
     repeat(1) {
-        Bar(color = MyGreen, price = 100)
-        Bar(color = MyOrange, price = 50)
-        Bar(color = MyBlue, price = 25)
-        Bar(color = MyGreen, price = 40)
-        Bar(color = MyBlue, price = 5)
-        Bar(color = MyOrange, price = 23)
-        Bar(color = MyGreen, price = 10)
+        Bar(color = MyGreen, percentage = 100)
+        Bar(color = MyOrange, percentage = 50)
+        Bar(color = MyBlue, percentage = 25)
+        Bar(color = MyGreen, percentage = 40)
+        Bar(color = MyBlue, percentage = 5)
+        Bar(color = MyOrange, percentage = 23)
+        Bar(color = MyGreen, percentage = 10)
     }
 }
 
@@ -161,12 +173,12 @@ fun BarPreview() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Bottom
         ) {
-            Bar(color = MyGreen, price = 30)
-            Bar(color = MyOrange, price = 70)
-            Bar(color = MyBlue, price = 50)
-            Bar(color = MyGreen, price = 90)
-            Bar(color = MyOrange, price = 10)
-            Bar(color = MyBlue, price = 25)
+            Bar(color = MyGreen, percentage = 30)
+            Bar(color = MyOrange, percentage = 70)
+            Bar(color = MyBlue, percentage = 50)
+            Bar(color = MyGreen, percentage = 90)
+            Bar(color = MyOrange, percentage = 10)
+            Bar(color = MyBlue, percentage = 25)
         }
     }
 }

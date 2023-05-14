@@ -10,9 +10,11 @@ import androidx.compose.ui.unit.Constraints
 import com.gdg.chart.components.barsComposable
 import com.gdg.chart.components.priceIndicatorsComposable
 import com.gdg.chart.components.pricesComposable
-import com.gdg.chart.extension.PriceParentDataModifier
+import com.gdg.chart.extension.PercentageParentDataModifier
+import com.gdg.chart.extension.availableSpaceSize
 import com.gdg.chart.extension.calculateBaseline
 import com.gdg.chart.extension.getFirstBaseline
+import com.gdg.chart.extension.layoutHeight
 import com.gdg.ui.theme.GDGTheme
 
 // Calculate max height of bars -> by the first and last position of indicators
@@ -20,28 +22,26 @@ import com.gdg.ui.theme.GDGTheme
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BarChart_9(
-    prices: @Composable () -> Unit,
+    percentageComposables: @Composable () -> Unit,
     priceIndicators: @Composable () -> Unit,
     bars: @Composable () -> Unit
 ) {
 
-    Layout(contents = listOf(prices, priceIndicators, bars),
-        measurePolicy = { (priceMeasurables, indicatorMeasurables, barMeasurables), constraints ->
-
-            // PRICE MEASUREMENT
-            val pricePlaceables = priceMeasurables.map { it.measure(constraints) }
-            val totalOfPricesHeight = pricePlaceables.sumOf { it.height }
-            val numberOfPrices = pricePlaceables.size
-            val a = constraints.maxHeight - totalOfPricesHeight
-            val mod = a % (pricePlaceables.size - 1)
-            val layoutHeight = constraints.maxHeight - mod
-            val layoutWidth = constraints.maxWidth
+    Layout(contents = listOf(percentageComposables, priceIndicators, bars),
+        measurePolicy = { (percentageMeasurables, indicatorMeasurables, barMeasurables), constraints ->
 
             // MEASUREMENT SCOPE
 
-            val spaceBetweenPrices =
-                (layoutHeight - totalOfPricesHeight) / (numberOfPrices - 1)
+            // PRICE MEASUREMENT
+            val pricePlaceables = percentageMeasurables.map { it.measure(constraints) }
+
+            val layoutHeight = pricePlaceables.layoutHeight(constraints)
+            val layoutWidth = constraints.maxWidth
+
+            val spaceBetweenPrices = pricePlaceables.availableSpaceSize(layoutHeight)
+
             val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
+
             val priceBaselines = pricePlaceables.map { it.calculateBaseline() }
 
             //INDICATOR MEASUREMENT
@@ -62,10 +62,10 @@ fun BarChart_9(
 
             val totalBarHeight = barLastBaseline - barFirstBaseline
 
-            // BAR MEASUREMENT]
+            // BAR MEASUREMENT
             val heights = barMeasurables.map {
-                val test = it.parentData as PriceParentDataModifier
-                (test.price * totalBarHeight) / 100
+                val test = it.parentData as PercentageParentDataModifier
+                (test.percentage * totalBarHeight) / 100
             }
 
             val barPlaceables = barMeasurables.mapIndexed { index, barMeasurable ->
@@ -106,7 +106,7 @@ fun BarChart9_AddBars() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
-                prices = pricesComposable,
+                percentageComposables = pricesComposable,
                 priceIndicators = priceIndicatorsComposable,
                 bars = barsComposable
             )

@@ -3,32 +3,31 @@ package com.gdg.barchart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.layout.Layout
+import com.gdg.chart.extension.availableSpaceSize
+import com.gdg.chart.extension.layoutHeight
 
 /* Add second compose,
    - mention the content -> contents
    - problems
       - indicator width is constraint with the layout, so out of the layout
-      - I would like to align indicators with Text baseline
+      - align indicators with Text baseline
  */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun BarChart_5(prices: @Composable () -> Unit, priceIndicators: @Composable () -> Unit) {
+fun BarChart_5(percentageComposables: @Composable () -> Unit, priceIndicators: @Composable () -> Unit) {
 
-    Layout(contents = listOf(prices, priceIndicators),
-        measurePolicy = { (priceMeasurables, indicatorMeasurables), constraints ->
-
-            val layoutHeight = constraints.maxHeight
-            val layoutWidth = constraints.maxWidth
-
-            // MEASUREMENT SCOPE
+    Layout(contents = listOf(percentageComposables, priceIndicators),
+        measurePolicy = { (percentageMeasurables, indicatorMeasurables), constraints ->
 
             // PRICE MEASUREMENT
-            val pricePlaceables = priceMeasurables.map { it.measure(constraints) }
-            val totalOfPricesHeight = pricePlaceables.sumOf { it.height }
-            val numberOfPrices = pricePlaceables.size
-            val spaceBetweenPrices = (layoutHeight - totalOfPricesHeight) / (numberOfPrices - 1)
-            val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
+            val pricePlaceables = percentageMeasurables.map { it.measure(constraints) }
 
+            val layoutHeight = pricePlaceables.layoutHeight(constraints)
+            val layoutWidth = constraints.maxWidth
+
+            val spaceBetweenPrices = pricePlaceables.availableSpaceSize(layoutHeight)
+
+            val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
 
             //INDICATOR MEASUREMENT
             val indicatorPlaceables = indicatorMeasurables.map { it.measure(constraints) }
@@ -46,5 +45,6 @@ fun BarChart_5(prices: @Composable () -> Unit, priceIndicators: @Composable () -
                     initialY += pricePlaceable.height + spaceBetweenPrices
                 }
             }
-        })
+        }
+    )
 }

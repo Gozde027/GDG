@@ -4,28 +4,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.Constraints
+import com.gdg.chart.extension.availableSpaceSize
+import com.gdg.chart.extension.layoutHeight
 
 // Indicator problem 1: constraint with padding, no max width
 // Use : Constraints.fixedWidth
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun BarChart_6(prices: @Composable () -> Unit, priceIndicators: @Composable () -> Unit) {
+fun BarChart_6(percentageComposables: @Composable () -> Unit, priceIndicators: @Composable () -> Unit) {
 
-    Layout(contents = listOf(prices, priceIndicators),
-        measurePolicy = { (priceMeasurables, indicatorMeasurables), constraints ->
-
-            val layoutHeight = constraints.maxHeight
-            val layoutWidth = constraints.maxWidth
+    Layout(contents = listOf(percentageComposables, priceIndicators),
+        measurePolicy = { (percentageMeasurables, indicatorMeasurables), constraints ->
 
             // MEASUREMENT SCOPE
 
             // PRICE MEASUREMENT
-            val pricePlaceables = priceMeasurables.map { it.measure(constraints) }
-            val totalOfPricesHeight = pricePlaceables.sumOf { it.height }
-            val numberOfPrices = pricePlaceables.size
-            val spaceBetweenPrices = (layoutHeight - totalOfPricesHeight) / (numberOfPrices - 1)
-            val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
+            val pricePlaceables = percentageMeasurables.map { it.measure(constraints) }
 
+            val layoutHeight = pricePlaceables.layoutHeight(constraints)
+            val layoutWidth = constraints.maxWidth
+
+            val spaceBetweenPrices = pricePlaceables.availableSpaceSize(layoutHeight)
+
+            val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
 
             //INDICATOR MEASUREMENT
             val indicatorWidth = constraints.maxWidth - maxWidthOfPrice

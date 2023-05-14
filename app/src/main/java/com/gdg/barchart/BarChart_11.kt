@@ -8,16 +8,18 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gdg.chart.extension.PriceParentDataModifier
+import com.gdg.chart.extension.PercentageParentDataModifier
+import com.gdg.chart.extension.availableSpaceSize
 import com.gdg.chart.extension.calculateBaseline
 import com.gdg.chart.extension.getFirstBaseline
+import com.gdg.chart.extension.layoutHeight
 import kotlin.math.roundToInt
 
 // Calculate width based on the max width
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BarChart_11(
-    prices: @Composable () -> Unit,
+    percentageComposables: @Composable () -> Unit,
     priceIndicators: @Composable () -> Unit,
     bars: @Composable () -> Unit,
     barWidth: Dp = 12.dp,
@@ -25,25 +27,22 @@ fun BarChart_11(
 ) {
 
     val barWidthInPixel = with(LocalDensity.current) { barWidth.toPx() }.roundToInt()
-    Layout(contents = listOf(prices, priceIndicators, bars),
+    Layout(contents = listOf(percentageComposables, priceIndicators, bars),
         modifier = modifier,
-        measurePolicy = { (priceMeasurables, indicatorMeasurables, barMeasurables), constraints ->
+        measurePolicy = { (percentageMeasurables, indicatorMeasurables, barMeasurables), constraints ->
 
             // MEASUREMENT SCOPE
 
             // PRICE MEASUREMENT
-            val pricePlaceables = priceMeasurables.map { it.measure(constraints) }
-            val totalOfPricesHeight = pricePlaceables.sumOf { it.height }
-            val numberOfPrices = pricePlaceables.size
-            val a = constraints.maxHeight - totalOfPricesHeight
-            val mod = a % (pricePlaceables.size - 1)
+            val pricePlaceables = percentageMeasurables.map { it.measure(constraints) }
 
-            val layoutHeight = constraints.maxHeight - mod
+            val layoutHeight = pricePlaceables.layoutHeight(constraints)
             val layoutWidth = constraints.maxWidth
 
-            val spaceBetweenPrices =
-                (layoutHeight - totalOfPricesHeight) / (numberOfPrices - 1)
+            val spaceBetweenPrices = pricePlaceables.availableSpaceSize(layoutHeight)
+
             val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
+
             val priceBaselines = pricePlaceables.map { it.calculateBaseline() }
 
             //INDICATOR MEASUREMENT
@@ -73,8 +72,8 @@ fun BarChart_11(
             val paddingForBar = totalAvailablePaddingForBar / numberOfPadding
 
             val heights = barMeasurables.map {
-                val test = it.parentData as PriceParentDataModifier
-                (test.price * totalBarHeight) / 100
+                val test = it.parentData as PercentageParentDataModifier
+                (test.percentage * totalBarHeight) / 100
             }
 
             val barPlaceables = barMeasurables.mapIndexed { index, barMeasurable ->

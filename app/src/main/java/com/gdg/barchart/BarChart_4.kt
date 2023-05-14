@@ -1,30 +1,28 @@
 package com.gdg.barchart
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.unit.Constraints
+import com.gdg.chart.extension.availableSpaceSize
+import com.gdg.chart.extension.layoutHeight
 
-// Calculate equal padding for price items and place them
+// Calculate equal padding for texts and place them
 // Like Column.spaceBetween effect
 // Cut the height a bit since calculation doesn't give exact integer and mess up the calculation later
-
 @Composable
-fun BarChart_4(prices: @Composable () -> Unit) {
+fun BarChart_4(percentageComposables: @Composable () -> Unit) {
 
-    Layout(content = prices, measurePolicy = { measurables, constraints ->
+    Layout(content = percentageComposables, measurePolicy = { percentageMeasurables, constraints ->
 
         // PRICE MEASUREMENT
-        val pricePlaceables = measurables.map { it.measure(constraints) }
-        val totalOfPricesHeight = pricePlaceables.sumOf { it.height }
-        val numberOfPrices = pricePlaceables.size
-        val availablePaddingSize = constraints.maxHeight - totalOfPricesHeight
-        val unwantedPadding =
-            availablePaddingSize % (pricePlaceables.size - 1) // so we can cut the leftover
+        val pricePlaceables = percentageMeasurables.map { it.measure(constraints) }
 
-        val layoutHeight = constraints.maxHeight - unwantedPadding
+        val layoutHeight = pricePlaceables.layoutHeight(constraints)
         val layoutWidth = constraints.maxWidth
 
-        val spaceBetweenPrices = (layoutHeight - totalOfPricesHeight) / (numberOfPrices - 1)
+        val spaceBetweenPrices = pricePlaceables.availableSpaceSize(layoutHeight)
+
         val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
 
         // PLACEMENT SCOPE

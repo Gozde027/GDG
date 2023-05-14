@@ -3,14 +3,14 @@ package com.gdg.barchart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.Layout
 
-// align prices by the max width
+// align texts by the max height
 @Composable
-fun BarChart_3(prices: @Composable () -> Unit) {
+fun BarChart_3(percentageComposables: @Composable () -> Unit) {
 
-    Layout(content = prices, measurePolicy = { measurables, constraints ->
+    Layout(content = percentageComposables, measurePolicy = { percentageMeasurables, constraints ->
 
         // MEASUREMENT SCOPE
-        val placeables = measurables.map { it.measure(constraints) }
+        val placeables = percentageMeasurables.map { it.measure(constraints) }
 
         val maxWidthOfPrice = placeables.maxOf { it.width }
 
@@ -18,7 +18,7 @@ fun BarChart_3(prices: @Composable () -> Unit) {
         val height = placeables.sumOf { it.height }
 
         // PLACEMENT SCOPE
-        layout(width, height) {
+        layout(width, constraints.maxHeight) {
 
             var initialY = 0
             placeables.forEach {
