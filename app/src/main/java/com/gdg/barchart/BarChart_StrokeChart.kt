@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import com.gdg.chart.components.StrokeChart
 import com.gdg.chart.components.bars
-import com.gdg.chart.components.priceIndicatorsComposable
+import com.gdg.chart.components.indicatorsComposable
 import com.gdg.chart.components.pricesComposable
 import com.gdg.chart.extension.availableSpaceSize
 import com.gdg.chart.extension.calculateBaseline
@@ -98,7 +98,7 @@ fun BarChartStrokeChart() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_StrokeChart(
                 percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 lineChart = @Composable {
                     StrokeChart(lines = bars)
                 }

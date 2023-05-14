@@ -7,7 +7,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Devices.FOLDABLE
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_XL
 import androidx.compose.ui.tooling.preview.Devices.TABLET
@@ -62,7 +61,7 @@ fun BarChart4_WithPrices_AlignWithEqualSpacer() {
 fun BarChart5_AddPriceIndicators_WithProblems() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_5(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
+            BarChart_5(percentageComposables = pricesComposable, priceIndicators = indicatorsComposable)
         }
     }
 }
@@ -72,7 +71,7 @@ fun BarChart5_AddPriceIndicators_WithProblems() {
 fun BarChart6_PriceIndicators_FixedWidthConstraint() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_6(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
+            BarChart_6(percentageComposables = pricesComposable, priceIndicators = indicatorsComposable)
         }
     }
 }
@@ -82,7 +81,7 @@ fun BarChart6_PriceIndicators_FixedWidthConstraint() {
 fun BarChart7_PriceIndicators_AlignWithBaseline() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_7(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
+            BarChart_7(percentageComposables = pricesComposable, priceIndicators = indicatorsComposable)
         }
     }
 }
@@ -92,7 +91,7 @@ fun BarChart7_PriceIndicators_AlignWithBaseline() {
 fun BarChart7_PriceIndicators_AlignWithBaseline_Landscape() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_7(percentageComposables = pricesComposable, priceIndicators = priceIndicatorsComposable)
+            BarChart_7(percentageComposables = pricesComposable, priceIndicators = indicatorsComposable)
         }
     }
 }
@@ -104,7 +103,7 @@ fun BarChart9_AlignBars() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
                 percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = barsComposable
             )
         }
@@ -118,7 +117,7 @@ fun BarChart9_AlignBars_Tablet() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
                 percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = barsComposable
             )
         }
@@ -132,7 +131,7 @@ fun BarChart10_BarWidth() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
                 percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = barsComposable,
                 barWidth = 40.dp
             )
@@ -147,7 +146,7 @@ fun BarChart10_BarWidth_Tablet() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
                 percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = barsComposable,
                 barWidth = 40.dp
             )
@@ -162,7 +161,7 @@ fun BarChart10_BarWidth_Foldable() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
                 percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = barsComposable,
                 barWidth = 80.dp
             )
@@ -177,7 +176,7 @@ fun BarChart10_BarWidth_PixelXL() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
                 percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = barsComposable,
                 barWidth = 40.dp // What is the use of this width and barsComposable ?
             )
@@ -192,7 +191,7 @@ fun BarChart11_Modifier_Padding() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_11(
                 percentageComposables = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = barsComposable,
                 barWidth = 40.dp,
                 modifier = Modifier
@@ -210,7 +209,7 @@ fun BarChart12_Round_Rect() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_12(
                 prices = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = roundRectBarsComposable,
                 barWidth = 40.dp,
                 modifier = Modifier
@@ -228,7 +227,7 @@ fun BarChart13_Top_Edges_Round_Rect() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_12(
                 prices = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = topEdgesRoundRectBarsComposable,
                 barWidth = 40.dp,
                 modifier = Modifier
@@ -247,7 +246,7 @@ fun BarChart13_Gradient_Rect() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_12(
                 prices = pricesComposable,
-                priceIndicators = priceIndicatorsComposable,
+                priceIndicators = indicatorsComposable,
                 bars = gradientRectBarsComposable,
                 barWidth = 40.dp,
                 modifier = Modifier

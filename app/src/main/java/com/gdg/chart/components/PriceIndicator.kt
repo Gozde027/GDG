@@ -14,7 +14,7 @@ fun PriceIndicator() {
     Divider(modifier = Modifier.height(1.dp), color = Color.White)
 }
 
-val priceIndicatorsComposable = @Composable {
+val indicatorsComposable = @Composable {
     repeat(11) {
         PriceIndicator()
     }
