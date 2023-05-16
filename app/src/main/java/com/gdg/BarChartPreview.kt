@@ -26,7 +26,7 @@ import com.gdg.barchart.BarChart_9
 import com.gdg.chart.components.barsComposable
 import com.gdg.chart.components.gradientRectBarsComposable
 import com.gdg.chart.components.indicatorsComposable
-import com.gdg.chart.components.percentagesComposable
+import com.gdg.chart.components.valuesComposables
 import com.gdg.chart.components.roundRectBarsComposable
 import com.gdg.chart.components.topEdgesRoundRectBarsComposable
 import com.gdg.ui.theme.GDGTheme
@@ -36,7 +36,7 @@ import com.gdg.ui.theme.GDGTheme
 fun BarChart1_WithPrices_FullHeight() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_1(percentageComposables = percentagesComposable)
+            BarChart_1(valueComposables = valuesComposables)
         }
     }
 }
@@ -46,7 +46,7 @@ fun BarChart1_WithPrices_FullHeight() {
 fun BarChart2_WithPrices_CustomHeight() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_2(percentageComposables = percentagesComposable)
+            BarChart_2(valueComposables = valuesComposables)
         }
     }
 }
@@ -56,7 +56,7 @@ fun BarChart2_WithPrices_CustomHeight() {
 fun BarChart3_WithPrices_AlignByMax() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_3(percentageComposables = percentagesComposable)
+            BarChart_3(valueComposables = valuesComposables)
         }
     }
 }
@@ -66,7 +66,7 @@ fun BarChart3_WithPrices_AlignByMax() {
 fun BarChart4_WithPrices_AlignWithEqualSpacer() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_4(percentageComposables = percentagesComposable)
+            BarChart_4(valueComposables = valuesComposables)
         }
     }
 }
@@ -76,7 +76,10 @@ fun BarChart4_WithPrices_AlignWithEqualSpacer() {
 fun BarChart5_AddPriceIndicators_WithProblems() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_5(percentageComposables = percentagesComposable, indicatorComposables = indicatorsComposable)
+            BarChart_5(
+                valueComposables = valuesComposables,
+                indicatorComposables = indicatorsComposable
+            )
         }
     }
 }
@@ -86,7 +89,10 @@ fun BarChart5_AddPriceIndicators_WithProblems() {
 fun BarChart6_PriceIndicators_FixedWidthConstraint() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_6(percentageComposables = percentagesComposable, indicatorComposables = indicatorsComposable)
+            BarChart_6(
+                valueComposables = valuesComposables,
+                indicatorComposables = indicatorsComposable
+            )
         }
     }
 }
@@ -96,7 +102,10 @@ fun BarChart6_PriceIndicators_FixedWidthConstraint() {
 fun BarChart7_PriceIndicators_AlignWithBaseline() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_7(percentageComposables = percentagesComposable, indicatorComposables = indicatorsComposable)
+            BarChart_7(
+                valueComposables = valuesComposables,
+                indicatorComposables = indicatorsComposable
+            )
         }
     }
 }
@@ -106,7 +115,10 @@ fun BarChart7_PriceIndicators_AlignWithBaseline() {
 fun BarChart7_PriceIndicators_AlignWithBaseline_Landscape() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            BarChart_7(percentageComposables = percentagesComposable, indicatorComposables = indicatorsComposable)
+            BarChart_7(
+                valueComposables = valuesComposables,
+                indicatorComposables = indicatorsComposable
+            )
         }
     }
 }
@@ -117,7 +129,7 @@ fun BarChart9_AlignBars() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = barsComposable
             )
@@ -131,7 +143,7 @@ fun BarChart9_AlignBars_Tablet() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_9(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = barsComposable
             )
@@ -145,7 +157,7 @@ fun BarChart10_BarWidth() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = barsComposable,
                 barWidth = 40.dp
@@ -160,7 +172,7 @@ fun BarChart10_BarWidth_Tablet() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = barsComposable,
                 barWidth = 40.dp
@@ -175,7 +187,7 @@ fun BarChart10_BarWidth_Foldable() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = barsComposable,
                 barWidth = 80.dp
@@ -190,7 +202,7 @@ fun BarChart10_BarWidth_PixelXL() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_10(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = barsComposable,
                 barWidth = 40.dp // What is the use of this width and barsComposable ?
@@ -205,7 +217,7 @@ fun BarChart11_Modifier_Padding() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_11(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorsComposables = indicatorsComposable,
                 barComposables = barsComposable,
                 barWidth = 40.dp,
@@ -223,7 +235,7 @@ fun BarChart12_Round_Rect() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_12(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = roundRectBarsComposable,
                 barWidth = 40.dp,
@@ -241,7 +253,7 @@ fun BarChart13_Top_Edges_Round_Rect() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_12(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = topEdgesRoundRectBarsComposable,
                 barWidth = 40.dp,
@@ -260,7 +272,7 @@ fun BarChart13_Gradient_Rect() {
     GDGTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             BarChart_12(
-                percentageComposables = percentagesComposable,
+                valueComposables = valuesComposables,
                 indicatorComposables = indicatorsComposable,
                 barComposables = gradientRectBarsComposable,
                 barWidth = 40.dp,

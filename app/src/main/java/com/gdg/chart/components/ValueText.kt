@@ -7,20 +7,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.gdg.ui.theme.GDGTheme
 
 @Composable
-fun PercentageText(text: String) {
+fun ValueText(text: String) {
     Text(text = text, color = Color.White)
 }
 
-val percentagesComposable = @Composable {
+val valuesComposables = @Composable {
     (100 downTo 0 step 10).forEach {
-        PercentageText(it.toString())
+        ValueText(it.toString())
     }
 }
 
 @Preview
 @Composable
-fun PercentageTextPreview() {
+fun ValueTextPreview() {
     GDGTheme(darkTheme = true) {
-        PercentageText(text = "50")
+        ValueText(text = "50")
     }
 }

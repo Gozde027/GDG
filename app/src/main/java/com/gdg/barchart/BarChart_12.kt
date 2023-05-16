@@ -17,7 +17,7 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BarChart_12(
-    percentageComposables: @Composable () -> Unit,
+    valueComposables: @Composable () -> Unit,
     indicatorComposables: @Composable () -> Unit,
     barComposables: @Composable () -> Unit,
     barWidth: Dp = 12.dp,
@@ -25,41 +25,41 @@ fun BarChart_12(
 ) {
 
     val barWidthInPixel = with(LocalDensity.current) { barWidth.toPx() }.roundToInt()
-    Layout(contents = listOf(percentageComposables, indicatorComposables, barComposables),
+    Layout(contents = listOf(valueComposables, indicatorComposables, barComposables),
         modifier = modifier,
         measurePolicy = { (priceMeasurables, indicatorMeasurables, barMeasurables), constraints ->
 
             // MEASUREMENT SCOPE
 
             // PRICE MEASUREMENT
-            val pricePlaceables = priceMeasurables.map { it.measure(constraints) }
-            val totalOfPricesHeight = pricePlaceables.sumOf { it.height }
-            val numberOfPrices = pricePlaceables.size
+            val valuePlaceables = priceMeasurables.map { it.measure(constraints) }
+            val totalOfPricesHeight = valuePlaceables.sumOf { it.height }
+            val numberOfPrices = valuePlaceables.size
             val a = constraints.maxHeight - totalOfPricesHeight
-            val mod = a % (pricePlaceables.size - 1)
+            val mod = a % (valuePlaceables.size - 1)
 
             val layoutHeight = constraints.maxHeight - mod
             val layoutWidth = constraints.maxWidth
 
             val spaceBetweenPrices =
                 (layoutHeight - totalOfPricesHeight) / (numberOfPrices - 1)
-            val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
-            val priceBaselines = pricePlaceables.map { it.calculateBaseline() }
+            val textMaxWidth = valuePlaceables.maxOf { it.width }
+            val priceBaselines = valuePlaceables.map { it.calculateBaseline() }
 
             //INDICATOR MEASUREMENT
-            val indicatorWidth = constraints.maxWidth - maxWidthOfPrice
+            val indicatorWidth = constraints.maxWidth - textMaxWidth
             val indicatorConstraint = Constraints.fixedWidth(indicatorWidth)
             val indicatorPlaceables = indicatorMeasurables.map { it.measure(indicatorConstraint) }
 
             // AVAILABLE PLACE FOR BARS
-            val lastPrice = pricePlaceables.last()
+            val lastPrice = valuePlaceables.last()
             val lastIndicator = indicatorPlaceables.last()
             val lastPriceBaseline = lastPrice.getFirstBaseline()
 
             // BAR BASELINES
             val barLastBaseline =
                 layoutHeight - lastPrice.height + lastPriceBaseline + lastIndicator.height
-            val barFirstBaseline = pricePlaceables.first().getFirstBaseline()
+            val barFirstBaseline = valuePlaceables.first().getFirstBaseline()
             val totalBarHeight = barLastBaseline - barFirstBaseline
 
             // BAR MEASUREMENT
@@ -67,7 +67,7 @@ fun BarChart_12(
             val numberOfBars = barMeasurables.size
             val numberOfPadding = numberOfBars + 1
 
-            val maxWidthForBarsInTotal = layoutWidth - maxWidthOfPrice
+            val maxWidthForBarsInTotal = layoutWidth - textMaxWidth
             val totalAvailablePaddingForBar =
                 maxWidthForBarsInTotal - (numberOfBars * barWidthInPixel)
             val paddingForBar = totalAvailablePaddingForBar / numberOfPadding
@@ -89,16 +89,16 @@ fun BarChart_12(
 
                 var initialY = 0
 
-                pricePlaceables.forEachIndexed { index, pricePlaceable ->
+                valuePlaceables.forEachIndexed { index, pricePlaceable ->
                     val indicatorPlaceable = indicatorPlaceables[index]
 
-                    pricePlaceable.place(maxWidthOfPrice - pricePlaceable.width, initialY)
+                    pricePlaceable.place(textMaxWidth - pricePlaceable.width, initialY)
                     val baseline = priceBaselines[index]
-                    indicatorPlaceable.place(maxWidthOfPrice, initialY + baseline)
+                    indicatorPlaceable.place(textMaxWidth, initialY + baseline)
                     initialY += pricePlaceable.height + spaceBetweenPrices
                 }
 
-                var barYPosition = maxWidthOfPrice
+                var barYPosition = textMaxWidth
                 barPlaceables.forEach { barPlaceable ->
                     barPlaceable.place(
                         barYPosition + paddingForBar,

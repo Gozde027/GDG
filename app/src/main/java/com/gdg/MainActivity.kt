@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             GDGTheme {
                 Surface(color = MaterialTheme.colorScheme.surface) {
-                    BarChart_1(percentageComposables = percentagesComposable)
+                    BarChart_1(valueComposables = valuesComposables)
                 }
             }
         }

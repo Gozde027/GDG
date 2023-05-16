@@ -13,42 +13,42 @@ import com.gdg.chart.extension.layoutHeight
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BarChart_7(
-    percentageComposables: @Composable () -> Unit,
+    valueComposables: @Composable () -> Unit,
     indicatorComposables: @Composable () -> Unit
 ) {
 
-    Layout(contents = listOf(percentageComposables, indicatorComposables),
-        measurePolicy = { (percentageMeasurables, indicatorMeasurables), constraints ->
+    Layout(contents = listOf(valueComposables, indicatorComposables),
+        measurePolicy = { (valueMeasurables, indicatorMeasurables), constraints ->
 
             // MEASUREMENT SCOPE
 
             // PRICE MEASUREMENT
-            val pricePlaceables = percentageMeasurables.map { it.measure(constraints) }
+            val valuePlaceables = valueMeasurables.map { it.measure(constraints) }
 
-            val layoutHeight = pricePlaceables.layoutHeight(constraints)
+            val layoutHeight = valuePlaceables.layoutHeight(constraints)
             val layoutWidth = constraints.maxWidth
 
-            val spaceBetweenPrices = pricePlaceables.availableSpaceSize(layoutHeight)
+            val spaceBetweenPrices = valuePlaceables.availableSpaceSize(layoutHeight)
 
-            val maxWidthOfPrice = pricePlaceables.maxOf { it.width }
+            val textMaxWidth = valuePlaceables.maxOf { it.width }
 
             //INDICATOR MEASUREMENT
-            val indicatorWidth = constraints.maxWidth - maxWidthOfPrice
+            val indicatorWidth = constraints.maxWidth - textMaxWidth
             val indicatorConstraint = Constraints.fixedWidth(indicatorWidth)
             val indicatorPlaceables = indicatorMeasurables.map { it.measure(indicatorConstraint) }
 
-            val priceBaselines = pricePlaceables.map { it.getFirstBaseline() }
+            val priceBaselines = valuePlaceables.map { it.getFirstBaseline() }
 
             // PLACEMENT SCOPE
             layout(layoutWidth, layoutHeight) {
 
                 var initialY = 0
-                pricePlaceables.forEachIndexed { index, pricePlaceable ->
+                valuePlaceables.forEachIndexed { index, pricePlaceable ->
                     val indicatorPlaceable = indicatorPlaceables[index]
 
-                    pricePlaceable.place(maxWidthOfPrice - pricePlaceable.width, initialY)
+                    pricePlaceable.place(textMaxWidth - pricePlaceable.width, initialY)
                     val baseline = priceBaselines[index]
-                    indicatorPlaceable.place(maxWidthOfPrice, initialY + baseline)
+                    indicatorPlaceable.place(textMaxWidth, initialY + baseline)
 
                     initialY += pricePlaceable.height + spaceBetweenPrices
                 }

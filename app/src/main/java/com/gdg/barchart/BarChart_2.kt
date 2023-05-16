@@ -5,12 +5,12 @@ import androidx.compose.ui.layout.Layout
 
 // Second step, instead of constraints max height, calculate via children's width
 @Composable
-fun BarChart_2(percentageComposables: @Composable () -> Unit) {
+fun BarChart_2(valueComposables: @Composable () -> Unit) {
 
-    Layout(content = percentageComposables, measurePolicy = { percentageMeasurables, constraints ->
+    Layout(content = valueComposables, measurePolicy = { valueMeasurables, constraints ->
 
         // MEASUREMENT SCOPE
-        val placeables = percentageMeasurables.map { it.measure(constraints) }
+        val placeables = valueMeasurables.map { it.measure(constraints) }
 
         val width = constraints.maxWidth
         val height = placeables.sumOf { it.height }

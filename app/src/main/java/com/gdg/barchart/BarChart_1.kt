@@ -6,12 +6,12 @@ import androidx.compose.ui.layout.Placeable
 
 // First step, add texts and show on UI as basic column, use constraint height
 @Composable
-fun BarChart_1(percentageComposables: @Composable () -> Unit) {
+fun BarChart_1(valueComposables: @Composable () -> Unit) {
 
-    Layout(content = percentageComposables, measurePolicy = { percentageMeasurables, constraints ->
+    Layout(content = valueComposables, measurePolicy = { valueMeasurables, constraints ->
 
         // MEASUREMENT SCOPE
-        val placeables: List<Placeable> = percentageMeasurables.map { it.measure(constraints) }
+        val placeables: List<Placeable> = valueMeasurables.map { it.measure(constraints) }
 
         val width = constraints.maxWidth
         val height = constraints.maxHeight
