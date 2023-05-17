@@ -77,6 +77,17 @@ fun VolvoIconComposable() {
                     moveTo(rightArrowCapStartOffset.x, rightArrowCapStartOffset.y)
                     lineTo(rightArrowCapLength.x, rightArrowCapLength.y)
                 }
+
+                val textResult = textMeasurer.measure(
+                    text = AnnotatedString("Volvo"),
+                    style = TextStyle(
+                        color = Color.Black,
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                    ),
+                    constraints = Constraints.fixedWidth((radius * 4f / 3f).toInt())
+                )
                 onDrawBehind {
                     drawArc(
                         size = componentSize,
@@ -95,17 +106,6 @@ fun VolvoIconComposable() {
 
                     )
                     drawPath(path = path, color = Color.Black, style = Stroke(5.dp.toPx()))
-
-                    val textResult = textMeasurer.measure(
-                        text = AnnotatedString("Volvo"),
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 20.sp,
-                            textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Bold,
-                        ),
-                        constraints = Constraints.fixedWidth((radius * 4f / 3f).toInt())
-                    )
 
                     val xText = (size.width - textResult.size.width) / 2f
                     val yText = (size.height - textResult.size.height) / 2f
